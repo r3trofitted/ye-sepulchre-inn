@@ -6,26 +6,17 @@ class SitAndPlaysTest < ApplicationSystemTestCase
     
     visit "/games/#{@game.id}"
     
-    within "#players" do
-      assert_text "Ahmed"
-      assert_text "Benoît"
-      assert_text "Charlotte"
-      refute_text "Daniel"
-    end
+    ordered_players_list = find("#players")
+    assert_equal "Charlotte Ahmed Benoît", ordered_players_list.text(normalize_ws: true)
     
     Capybara.using_session("New player") do
       visit "/games/#{@game.id}/join?name=Daniel"
-
-      within "#players" do
-        assert_text "Ahmed"
-        assert_text "Benoît"
-        assert_text "Charlotte"
-        assert_text "Daniel"
-      end
+      
+      ordered_players_list = find("#players")
+      assert_equal "Charlotte Daniel Ahmed Benoît", ordered_players_list.text(normalize_ws: true)
     end
     
-    within "#players" do
-      assert_text "Daniel"
-    end
+    ordered_players_list = find("#players")
+    assert_equal "Daniel Ahmed Benoît Charlotte", ordered_players_list.text(normalize_ws: true)
   end
 end
