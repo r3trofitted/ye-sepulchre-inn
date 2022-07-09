@@ -1,10 +1,9 @@
 <main>
   <ul id="players">
-    <%# SLIME %>
-    <li>Ahmed</li>
-    <li>Benoît</li>
-    <li>Charlotte</li>
-    <!-- <li>Daniel</li> -->
-    <!-- <li>Erica</li> -->
+    <% ordered_players(@game).each do |p| %>
+      <li>
+        <%= p.name %>
+      </li>
+    <% end %>
   </ul>
 </main>
