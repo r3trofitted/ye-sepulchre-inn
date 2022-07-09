@@ -1,6 +1,6 @@
 <main>
   <ul id="players">
-    <% ordered_players(@game).each do |p| %>
+    <% @game.players.ordered_for(Current.player).each do |p| %>
       <li>
         <%= p.name %>
       </li>
