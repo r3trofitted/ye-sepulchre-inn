@@ -5,5 +5,9 @@ class Game < ApplicationRecord
         .to_a
         .then { |ps| ps.rotate!(ps.index(player) - (ps.size/2.0).ceil + 1) }
     end
+    
+    def register(player_attributes)
+      create(player_attributes.merge(position: maximum(:position).to_i + 1))
+    end
   end
 end
