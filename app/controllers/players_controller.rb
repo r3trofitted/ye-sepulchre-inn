@@ -2,7 +2,8 @@ class PlayersController < ApplicationController
   def create
     game = Game.find(params[:game_id])
     
-    game.players.create!(player_params) # TODO: assign the position
+    player = game.players.create!(player_params) # TODO: assign the position
+    session[:player_id] = player.id
     redirect_to game
   end
   

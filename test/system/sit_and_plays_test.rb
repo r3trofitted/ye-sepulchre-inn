@@ -14,6 +14,7 @@ class SitAndPlaysTest < ApplicationSystemTestCase
       
       ordered_players_list = find("#players")
       assert_equal "Charlotte Daniel Ahmed Benoît", ordered_players_list.text(normalize_ws: true)
+      # TODO: assert that Daniel is the current player
     end
     
     ordered_players_list = find("#players")
