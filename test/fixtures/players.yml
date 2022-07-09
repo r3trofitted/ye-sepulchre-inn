@@ -1,0 +1,12 @@
+ahmed:
+  name: Ahmed
+  position: 1
+  game: at_third_call
+benoit:
+  name: Benoît
+  position: 2
+  game: at_third_call
+charlotte:
+  name: Charlotte
+  position: 3
+  game: at_third_call
