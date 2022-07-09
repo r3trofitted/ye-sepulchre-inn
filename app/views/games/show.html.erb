@@ -1,9 +1,5 @@
+<%= turbo_stream_from Current.player %>
+
 <main>
-  <ul id="players">
-    <% @game.players.ordered_for(Current.player).each do |p| %>
-      <li>
-        <%= p.name %>
-      </li>
-    <% end %>
-  </ul>
+  <%= render "players", game: @game, player: Current.player %>
 </main>
