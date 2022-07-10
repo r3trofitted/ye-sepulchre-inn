@@ -1,0 +1,7 @@
+<ul id="players">
+  <% game.players.ordered_for(player).each do |p| %>
+    <li>
+      <%= p.name %>
+    </li>
+  <% end %>
+</ul>

@@ -1,5 +1,5 @@
 <%= turbo_stream_from Current.player %>
 
 <main>
-  <%= render PlayersList.new(game: @game, current_player: Current.player) %>
+  <%= render "players", game: @game, player: Current.player %>
 </main>
