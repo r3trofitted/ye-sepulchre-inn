@@ -1,9 +1,11 @@
 require "application_system_test_case"
 
 class SitAndPlaysTest < ApplicationSystemTestCase
-  test "joining a game in progress" do
+  def setup
     @game = games(:at_third_call)
-    
+  end
+  
+  test "joining a game in progress" do
     visit "/games/#{@game.id}"
     
     ordered_players_list = find("#players")
@@ -19,5 +21,20 @@ class SitAndPlaysTest < ApplicationSystemTestCase
     
     ordered_players_list = find("#players")
     assert_equal "Daniel Ahmed Benoît Charlotte", ordered_players_list.text(normalize_ws: true)
+  end
+  
+  test "leaving a game" do
+    visit "/games/#{@game.id}"
+    alt_session = Capybara::Session.new(:cuprite, Capybara.current_session.app)
+    
+    alt_session.visit "/games/#{@game.id}/join?name=Daniel"
+    
+    ordered_players_list = find("#players")
+    assert_equal "Daniel Ahmed Benoît Charlotte", ordered_players_list.text(normalize_ws: true)
+    
+    alt_session.quit
+    
+    ordered_players_list = find("#players")
+    assert_equal "Ahmed Benoît Charlotte", ordered_players_list.text(normalize_ws: true)
   end
 end
