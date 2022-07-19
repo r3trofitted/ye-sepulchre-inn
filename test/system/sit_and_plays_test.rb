@@ -25,16 +25,19 @@ class SitAndPlaysTest < ApplicationSystemTestCase
   
   test "leaving a game" do
     visit "/games/#{@game.id}"
-    alt_session = Capybara::Session.new(:cuprite, Capybara.current_session.app)
     
-    alt_session.visit "/games/#{@game.id}/join?name=Daniel"
+    Capybara.using_session("New player") do
+      visit "/games/#{@game.id}/join?name=Daniel"
+    end
     
     ordered_players_list = find("#players")
     assert_equal "Daniel Ahmed Benoît Charlotte", ordered_players_list.text(normalize_ws: true)
     
-    alt_session.quit
+    Capybara.using_session("New player") do
+      click_on "Leave the game"
+    end
     
     ordered_players_list = find("#players")
-    assert_equal "Ahmed Benoît Charlotte", ordered_players_list.text(normalize_ws: true)
+    assert_equal "Charlotte Ahmed Benoît", ordered_players_list.text(normalize_ws: true)
   end
 end

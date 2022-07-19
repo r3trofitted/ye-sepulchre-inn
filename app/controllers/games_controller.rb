@@ -1,16 +1,10 @@
 class GamesController < ApplicationController
-  before_action :set_game, :set_current_player
-  
+  include CurrentPlayer
+
   def show
-  end
-  
-  private
-  
-  def set_game
     @game = Game.find params[:id]
-  end
-  
-  def set_current_player
-    Current.player = @game.players.find_by(id: session[:player_id]) || @game.players.first # FIXME: get rid of the fallback
+    
+    # FIXME: get rid of this fallback
+    Current.player ||= @game.players.first
   end
 end

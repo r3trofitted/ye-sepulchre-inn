@@ -1,5 +1,12 @@
 <%= turbo_stream_from Current.player %>
 
+<nav>
+  <ul>
+    <li>
+      <%= button_to "Leave the game", game_leave_url(@game), method: :delete %>
+    </li>
+  </ul>
+</nav>
 <main>
   <%= render "players", game: @game, player: Current.player %>
 </main>
